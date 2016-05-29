@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+h1.exe{
+ text-align: center;
+ font-family: "ALGERIAN";
+ font-size:400%;
+ font-style:bold;
+}
+p.ex{
+text-align:center;
+font-size:350%;
+font-family: "ALGERIAN";
+font-style:regular;
+}
+
+ #day
+{
+text-align: center;
+font-size:300%;
+font-family:"ALGERIAN";
+font-style:regular;
+}
+
+button
+{
+background-color: orange;
+ border: 2px solid black;
+ color:black;
+ padding: 15px 32px;
+ border-radius: 50%;
+ text-align: center;
+ font-family: "ALGERIAN";
+ font-size: 20px;
+ margin-left: 17.5em;
+display: inline-block;
+
+}
+body{background-color:yellow;}
+
+</style>
+</head>
+
+<body>
+
+<h1 class="exe">!!SUMMER OLYMPICS COUNTDOWN!! </h1>
+
+<p class="ex">!rio de janeiro!</p>
+
+<p id = "day"></p>
+
+
+<button onclick = "clearInterval(x)"> STOP </button>
+<button onclick = " x = setInterval(subfn,1000)">CONTINUE</button>
+
+<script>
+
+var deadline = Date.parse("august 5,2016");
+var present = Date.now();
+var left = deadline - present;
+var dmin= 1000 * 60;
+var dhours= dmin * 60;
+var dday = dhours * 24;
+var ls = left/1000;
+var lm = Math.round(left/dmin);
+var lh = Math.round(left/dhours);
+var lday = Math.round( left/dday);
+var lhours = Math.round(lh/lday);
+var lmin = Math.round(lm/(lhours * lday));
+var lsec = Math.round(ls/(lhours * lmin * lday));
+
+if(lday ==0)
+{
+ lhours = Math.round(lh/1);
+ lmin = Math.round(lm/(lhours));
+ lsec = Math.round(ls/(lhours * lmin));
+}
+if(lday==0 && lhours==0)
+{
+ lmin = Math.round(lm/1);
+ lsec = Math.round(ls/lmin);
+}
+
+if(lsec>=60)
+{lsec=lsec%60;
+lmin=lsec/60+lmin;
+}
+if(lmin>=60)
+{lmin=lmin%60;
+lhours=lmin/60+lhours;
+}
+if(lhours==24)
+{lhours=lhours%24;
+lday=lhours/24+lday;
+}
+var x =setInterval(subfn, 1000); 
+
+function subfn() 
+{
+
+document.getElementById("day").innerHTML = lday  + "   :   "  + lhours + "  :  " + lmin + "  :  " +lsec +"<br>" + "Day " + " Hr " + " Min " +" Sec ";
+
+if(lmin==0 &&lday==0 &&lhours==0 && lsec==0)
+clearInterval(x);
+else
+{
+
+if(lsec==0)
+{lsec=59;
+ if(lmin!=0)
+  lmin-=1;
+else
+ { lmin=59;
+if(lhours==0)
+ {lhours=23;
+ if(lday==0)
+lday=0;
+else
+ lday-=1;
+ } 
+ else
+ lhours-=1;
+}}
+lsec--;
+}
+
+}
+
+
+</script>
+</body>
+ </html>
